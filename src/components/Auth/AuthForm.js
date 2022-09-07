@@ -1,11 +1,19 @@
 import { useState, useRef, useContext } from "react";
-import AuthContext from "../../store/auth-context";
+import AuthContext from "../../store/Auth-Context";
+
+// import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import classes from "./AuthForm.module.css";
 
 const AuthForm = () => {
+  // const history = useHistory();
+  const navigate = useNavigate();
+
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
+
+  console.log(emailInputRef);
 
   const authCtx = useContext(AuthContext);
 
@@ -69,6 +77,15 @@ const AuthForm = () => {
       .then((data) => {
         // console.log(data);
         authCtx.login(data.idToken);
+        //history.replace();
+        
+        //replace = cant use back button to go back
+        // navigate(‘/path’, {replace: true});
+        // Navigate(-1); // to go back to the previous page.
+        // Navigate(-2); // go to the page before the previous page.
+        // Navigate(1); // go to forward page. 
+        navigate('/', {replace: true});
+
       })
       .catch((err) => {
         alert(err.message);
@@ -81,7 +98,7 @@ const AuthForm = () => {
       <form onSubmit={submitHandler}>
         <div className={classes.control}>
           <label htmlFor="email">Your Email</label>
-          <input type="email" id="email" required rer={emailInputRef} />
+          <input type="email" id="email" required ref={emailInputRef} />
         </div>
         <div className={classes.control}>
           <label htmlFor="password">Your Password</label>
