@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
 import classes from "./MainNavigation.module.css";
@@ -8,7 +8,6 @@ import classes from "./MainNavigation.module.css";
 import AuthContext from "../../store/Auth-Context";
 
 const MainNavigation = () => {
-
   // const navigate = useNavigate();
 
   const logoutHandler = () => {
@@ -39,7 +38,10 @@ const MainNavigation = () => {
           )}
           {isLoggedIn && (
             <li>
-              <button onClick={logoutHandler}>Logout</button>
+              <button
+                onClick={logoutHandler}>
+                Logout
+              </button>
             </li>
           )}
         </ul>

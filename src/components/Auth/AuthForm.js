@@ -76,16 +76,21 @@ const AuthForm = () => {
       })
       .then((data) => {
         // console.log(data);
-        authCtx.login(data.idToken);
-        //history.replace();
+
+        const expirationTime = new Date(
+          new Date().getTime() + +data.expiresIn * 1000
+        ); //+ = converts to number, *1000 from s to ms
+
+        authCtx.login(data.idToken, expirationTime.toISOString());
         
+        //history.replace();
+
         //replace = cant use back button to go back
         // navigate(‘/path’, {replace: true});
         // Navigate(-1); // to go back to the previous page.
         // Navigate(-2); // go to the page before the previous page.
-        // Navigate(1); // go to forward page. 
-        navigate('/', {replace: true});
-
+        // Navigate(1); // go to forward page.
+        navigate("/", { replace: true });
       })
       .catch((err) => {
         alert(err.message);
